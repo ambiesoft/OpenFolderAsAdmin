@@ -29,7 +29,7 @@ LANGUAGE 17, 1
 // ID 値のアイコンが最初に配置されます。
 
 IDI_OPENFOLDERASADMIN       ICON         "OpenFolderAsAdmin.ico"
-IDI_SMALL               ICON         "small.ico"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //

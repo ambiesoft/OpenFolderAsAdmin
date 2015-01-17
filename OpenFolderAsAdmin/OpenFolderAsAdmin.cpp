@@ -1,6 +1,3 @@
-// OpenFolderAsAdmin.cpp : アプリケーションのエントリ ポイントを定義します。
-//
-
 #include "stdafx.h"
 
 
@@ -8,10 +5,13 @@
 
 #define MAX_LOADSTRING 100
 
-// グローバル変数:
-HINSTANCE hInst;								// 現在のインターフェイス
-TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト
-TCHAR szWindowClass[MAX_LOADSTRING];			// メイン ウィンドウ クラス名
+
+HINSTANCE hInst;
+TCHAR szTitle[MAX_LOADSTRING];
+TCHAR szWindowClass[MAX_LOADSTRING];
+
+// http://www.flaticon.com/free-icon/delivery-pack-security-symbol-with-a-shield_45926
+
 
 //
 //HRESULT BasicFileOpen()
