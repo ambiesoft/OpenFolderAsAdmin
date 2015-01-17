@@ -13,6 +13,98 @@ TCHAR szWindowClass[MAX_LOADSTRING];
 // http://www.flaticon.com/free-icon/delivery-pack-security-symbol-with-a-shield_45926
 
 
+
+TCHAR buffer[4096];
+
+UINT_PTR CALLBACK OFNHookProc(
+  HWND hdlg,
+  UINT uiMsg,
+  WPARAM wParam,
+  LPARAM lParam
+)
+{
+	switch(uiMsg)
+	{
+		case WM_INITDIALOG:
+		{
+			HWND hParent = GetParent(hdlg);
+			HWND hOK = GetDlgItem(hParent, IDOK);
+			ShowWindow(hOK, SW_HIDE);
+
+			HWND hCancel = GetDlgItem(hParent, IDCANCEL);
+			SetWindowText(hCancel, _T("Close"));
+
+			HWND hStaticFilename = GetDlgItem(hParent, 0x442);
+			ShowWindow(hStaticFilename, SW_HIDE);
+
+			HWND hStaticFilekind = GetDlgItem(hParent, 0x441);
+			ShowWindow(hStaticFilekind, SW_HIDE);
+
+			HWND hComboFilename = GetDlgItem(hParent, 0x47c);
+			ShowWindow(hComboFilename, SW_HIDE);
+
+			HWND hComboFilekind = GetDlgItem(hParent, 0x470);
+			ShowWindow(hComboFilekind, SW_HIDE);
+
+
+		}
+		break;
+	}
+	return 0;
+}
+
+int APIENTRY _tWinMain(HINSTANCE hInstance,
+					   HINSTANCE hPrevInstance,
+					   LPTSTR    lpCmdLine,
+					   int       nCmdShow)
+{
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
+
+	LPCTSTR pArgPath = NULL;
+	if(__argc > 1)
+	{
+		pArgPath = __targv[1];
+		lstrcpy(buffer, pArgPath);
+	}
+	else
+		pArgPath = _T("C:\\");
+	
+	OPENFILENAME ofn = {0};
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	ofn.hInstance = NULL;
+	ofn.lpstrFilter = NULL;
+	ofn.lpstrCustomFilter = NULL;
+	ofn.lpstrFile = buffer;
+	ofn.nMaxFile = sizeof(buffer)/sizeof(buffer[0]);
+	ofn.lpstrFileTitle = NULL;
+	ofn.nMaxFileTitle = 0;
+	ofn.lpstrInitialDir = pArgPath;
+	ofn.lpstrTitle = _T("OpenFolderAsAdmin");
+	ofn.Flags = OFN_ALLOWMULTISELECT | 
+		OFN_ENABLESIZING | 
+		OFN_FORCESHOWHIDDEN |
+		OFN_HIDEREADONLY |
+		OFN_EXPLORER |
+		OFN_ENABLEHOOK;
+	
+	ofn.nFileOffset = 0;
+	ofn.nFileExtension = 0;
+	ofn.lpstrDefExt = 0;
+	ofn.lCustData = NULL;
+	ofn.lpfnHook = OFNHookProc;
+	ofn.lpTemplateName = NULL;
+
+	GetOpenFileName(&ofn);
+
+
+
+	return 0;
+}
+
+
+
 //
 //HRESULT BasicFileOpen()
 //{
@@ -104,53 +196,3 @@ TCHAR szWindowClass[MAX_LOADSTRING];
 //	}
 //	return hr;
 //}
-
-
-TCHAR buffer[4096];
-int APIENTRY _tWinMain(HINSTANCE hInstance,
-					   HINSTANCE hPrevInstance,
-					   LPTSTR    lpCmdLine,
-					   int       nCmdShow)
-{
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
-
-	LPCTSTR pArgPath = NULL;
-	if(__argc > 1)
-	{
-		pArgPath = __targv[1];
-		lstrcpy(buffer, pArgPath);
-	}
-	else
-		pArgPath = _T("C:\\");
-	
-	OPENFILENAME ofn = {0};
-	ofn.lStructSize = sizeof(ofn);
-	ofn.hwndOwner = NULL;
-	ofn.hInstance = NULL;
-	ofn.lpstrFilter = NULL;
-	ofn.lpstrCustomFilter = NULL;
-	ofn.lpstrFile = buffer;
-	ofn.nMaxFile = sizeof(buffer)/sizeof(buffer[0]);
-	ofn.lpstrFileTitle = NULL;
-	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = pArgPath;
-	ofn.lpstrTitle = _T("OpenFolderAsAdmin");
-	ofn.Flags = OFN_ALLOWMULTISELECT | 
-		OFN_ENABLESIZING | 
-		OFN_FORCESHOWHIDDEN |
-		OFN_HIDEREADONLY |
-		OFN_EXPLORER;
-	ofn.nFileOffset = 0;
-	ofn.nFileExtension = 0;
-	ofn.lpstrDefExt = 0;
-	ofn.lCustData = NULL;
-	ofn.lpfnHook = NULL;
-	ofn.lpTemplateName = NULL;
-
-	GetOpenFileName(&ofn);
-
-
-
-	return 0;
-}
