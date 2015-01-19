@@ -61,15 +61,43 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
+	bool bSL=false;
 	LPCTSTR pArgPath = NULL;
 	if(__argc > 1)
 	{
-		pArgPath = __targv[1];
-		lstrcpy(buffer, pArgPath);
+		if(lstrcmp(__targv[1], L"/secondlaunch")==0)
+			bSL = true;
+		else
+		{
+			pArgPath = __targv[1];
+			lstrcpy(buffer, pArgPath);
+			if(__argc > 2)
+			{
+				if(lstrcmp(__targv[2], L"/secondlaunch")==0)
+					bSL = true;
+			}
+		}
 	}
 	else
 		pArgPath = _T("C:\\");
 	
+
+	if(!IsAdminDll::IsAdminDll::Is3Admin())
+	{
+		if(bSL)
+		{
+			MessageBox(NULL,L"Recursive call",
+				L"OpenFolderAsAdmin",
+				MB_ICONERROR);
+			return -1;
+		}
+
+		wstring cmdline = GetCommandLine();
+		cmdline += L" /secondlaunch";555
+		ShellExecute(NULL, L"runas", cmdline.c_str(), NULL, NULL, nCmdShow);
+		return 0;
+	}
+
 	OPENFILENAME ofn = {0};
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = NULL;
