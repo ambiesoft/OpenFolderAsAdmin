@@ -82,6 +82,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		pArgPath = _T("C:\\");
 	
 
+/* this need clr
 	if(!IsAdminDll::IsAdminDll::Is3Admin())
 	{
 		if(bSL)
@@ -93,10 +94,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 
 		wstring cmdline = GetCommandLine();
-		cmdline += L" /secondlaunch";555
-		ShellExecute(NULL, L"runas", cmdline.c_str(), NULL, NULL, nCmdShow);
+		cmdline += L" /secondlaunch";
+		HINSTANCE nShellRet = ShellExecute(NULL, L"runas", cmdline.c_str(), NULL, NULL, nCmdShow);
 		return 0;
 	}
+*/
 
 	OPENFILENAME ofn = {0};
 	ofn.lStructSize = sizeof(ofn);
