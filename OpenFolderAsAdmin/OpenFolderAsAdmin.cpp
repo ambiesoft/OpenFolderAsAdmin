@@ -2,6 +2,7 @@
 
 
 #include "OpenFolderAsAdmin.h"
+#include "../../MyUtility/WaitWindowClose.h"
 
 #define MAX_LOADSTRING 100
 
@@ -53,6 +54,7 @@ UINT_PTR CALLBACK OFNHookProc(
 	return 0;
 }
 
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
 					   LPTSTR    lpCmdLine,
@@ -99,7 +101,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return 0;
 	}
 */
-	//HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\SeparateProcess
+	// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\SeparateProcess
 
 	OPENFILENAME ofn = {0};
 	ofn.lStructSize = sizeof(ofn);
@@ -130,7 +132,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	GetOpenFileName(&ofn);
 
 
-
+	WaitWindowClose();
 	return 0;
 }
 
