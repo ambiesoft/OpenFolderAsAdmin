@@ -99,6 +99,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return 0;
 	}
 */
+	//HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\SeparateProcess
 
 	OPENFILENAME ofn = {0};
 	ofn.lStructSize = sizeof(ofn);
