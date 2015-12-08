@@ -1,8 +1,10 @@
 #include "stdafx.h"
-
-
+#include <Shlwapi.h>
+#include <stlsoft/smartptr/scoped_handle.hpp>
 #include "OpenFolderAsAdmin.h"
 #include "../../MyUtility/WaitWindowClose.h"
+#include "../../MyUtility/tstring.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -42,12 +44,21 @@ UINT_PTR CALLBACK OFNHookProc(
 			ShowWindow(hStaticFilekind, SW_HIDE);
 
 			HWND hComboFilename = GetDlgItem(hParent, 0x47c);
-			ShowWindow(hComboFilename, SW_HIDE);
+			//ShowWindow(hComboFilename, SW_HIDE);
 
 			HWND hComboFilekind = GetDlgItem(hParent, 0x470);
-			ShowWindow(hComboFilekind, SW_HIDE);
+			EnableWindow(hComboFilekind, FALSE);
+		}
+		break;
 
-
+		case WM_NOTIFY:
+		{
+			NMHDR* pNotify = (NMHDR*)lParam;
+			if(pNotify->code==CDN_FILEOK)
+			{
+				SetWindowLong(hdlg, DWL_MSGRESULT, 1);
+				return 1;
+			}
 		}
 		break;
 	}
@@ -64,15 +75,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	bool bSL=false;
-	LPCTSTR pArgPath = NULL;
+	TCHAR szArg[MAX_PATH] = {0};
+
+
 	if(__argc > 1)
 	{
 		if(lstrcmp(__targv[1], L"/secondlaunch")==0)
 			bSL = true;
 		else
 		{
-			pArgPath = __targv[1];
-			lstrcpy(buffer, pArgPath);
+			lstrcpy(szArg,__targv[1]);
+			lstrcpy(buffer, __targv[1]);
 			if(__argc > 2)
 			{
 				if(lstrcmp(__targv[2], L"/secondlaunch")==0)
@@ -81,8 +94,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		}
 	}
 	else
-		pArgPath = _T("C:\\");
-	
+	{
+		lstrcpy(szArg,__T("C:\\"));
+	}
+
+
+	PathRemoveBackslash(szArg);
 
 /* this need clr
 	if(!IsAdminDll::IsAdminDll::Is3Admin())
@@ -113,13 +130,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	ofn.nMaxFile = sizeof(buffer)/sizeof(buffer[0]);
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
-	ofn.lpstrInitialDir = pArgPath;
+	ofn.lpstrInitialDir = szArg;
 	ofn.lpstrTitle = _T("OpenFolderAsAdmin");
-	ofn.Flags = OFN_ALLOWMULTISELECT | 
+	ofn.Flags = 
+		OFN_ALLOWMULTISELECT | 
 		OFN_ENABLESIZING | 
 		OFN_FORCESHOWHIDDEN |
 		OFN_HIDEREADONLY |
 		OFN_EXPLORER |
+		OFN_FORCESHOWHIDDEN |
 		OFN_ENABLEHOOK;
 	
 	ofn.nFileOffset = 0;
