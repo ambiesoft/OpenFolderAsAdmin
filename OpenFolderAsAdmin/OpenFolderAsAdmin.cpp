@@ -1,13 +1,6 @@
 #include "stdafx.h"
-#include <Shlwapi.h>
-#include <stlsoft/smartptr/scoped_handle.hpp>
+
 #include "OpenFolderAsAdmin.h"
-#include "../../MyUtility/WaitWindowClose.h"
-#include "../../MyUtility/tstring.h"
-
-
-#define MAX_LOADSTRING 100
-
 
 HINSTANCE hInst;
 TCHAR szTitle[MAX_LOADSTRING];
@@ -17,7 +10,24 @@ TCHAR szWindowClass[MAX_LOADSTRING];
 
 
 
-TCHAR buffer[4096];
+
+
+BOOL CALLBACK myEnumChildProc(HWND hwnd, LPARAM lParam)
+{
+	TCHAR buffer[1024];buffer[0]=0;
+	GetClassName(hwnd, buffer, countof(buffer));
+	if(lstrcmp(buffer, L"SysListView32")==0)
+	{
+		buffer[0]=0;
+		GetWindowText(hwnd, buffer, countof(buffer));
+		if(lstrcmp(buffer, L"FolderView")==0)
+		{
+			*(HWND*)lParam=hwnd;
+			return FALSE;
+		}
+	}
+	return TRUE;
+}
 
 UINT_PTR CALLBACK OFNHookProc(
   HWND hdlg,
@@ -26,6 +36,7 @@ UINT_PTR CALLBACK OFNHookProc(
   LPARAM lParam
 )
 {
+	static TCHAR buffer[1024];
 	switch(uiMsg)
 	{
 		case WM_INITDIALOG:
@@ -48,16 +59,74 @@ UINT_PTR CALLBACK OFNHookProc(
 
 			HWND hComboFilekind = GetDlgItem(hParent, 0x470);
 			EnableWindow(hComboFilekind, FALSE);
+
+
+
+			// PostMessage(hdlg, WM_APP_AFTERINIT, 0,0);
+
+		}
+		break;
+
+		case WM_APP_AFTERINIT:
+		{
+			HWND hFolder = NULL;
+			EnumChildWindows(GetParent(hdlg),myEnumChildProc, (LPARAM)&hFolder);
+			int count =ListView_GetItemCount(hFolder);
+			static int lastcount;
+			if(count==0 || count != lastcount)
+			{
+				PostMessage(hdlg, WM_APP_AFTERINIT, 0,0);
+			}
+			else
+			{
+				HWND hComboFilename = GetDlgItem(GetParent(hdlg), 0x47c);
+				buffer[0]=0;
+				GetWindowText(hComboFilename,buffer,countof(buffer));
+				if(buffer[0])
+				{
+					wstring filename=buffer;
+					int index=-1;
+					for(int i=0 ; i < count ; ++i)
+					{
+						buffer[0]=0;
+						ListView_GetItemText(hFolder,i,0,buffer,countof(buffer));
+						if(lstrcmpi(filename.c_str(),buffer)==0)
+						{
+							index=i;
+							break;
+						}
+					}
+					if(index>=0)
+					{
+						ListView_SetItemState(hFolder, index, LVIS_SELECTED|LVIS_FOCUSED,LVIS_SELECTED|LVIS_FOCUSED);
+						ListView_EnsureVisible(hFolder, index, FALSE);
+					}
+				}
+			}
+			lastcount = count;
 		}
 		break;
 
 		case WM_NOTIFY:
 		{
 			NMHDR* pNotify = (NMHDR*)lParam;
-			if(pNotify->code==CDN_FILEOK)
+			switch(pNotify->code)
 			{
-				SetWindowLong(hdlg, DWL_MSGRESULT, 1);
-				return 1;
+				case CDN_FILEOK:
+				{
+					SetWindowLong(hdlg, DWL_MSGRESULT, 1);
+					return 1;
+				}
+				break;
+				
+				case CDN_INITDONE:
+				{
+					PostMessage(hdlg, WM_APP_AFTERINIT, 0,0);
+					//HWND hFolder = NULL;
+					//EnumChildWindows(GetParent(hdlg),myEnumChildProc, (LPARAM)&hFolder);
+					//ListView_SetItemState(hFolder, 1, LVIS_SELECTED|LVIS_FOCUSED,LVIS_SELECTED|LVIS_FOCUSED);
+				}
+				break;
 			}
 		}
 		break;
@@ -76,8 +145,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	bool bSL=false;
 	TCHAR szArg[MAX_PATH] = {0};
-
-
+	TCHAR* buffer = (TCHAR*)malloc(4096);
+	STLSCOPEDFREE(buffer);
 	if(__argc > 1)
 	{
 		if(lstrcmp(__targv[1], L"/secondlaunch")==0)
@@ -86,6 +155,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		{
 			lstrcpy(szArg,__targv[1]);
 			lstrcpy(buffer, __targv[1]);
+			PathRemoveBackslash(buffer);
 			if(__argc > 2)
 			{
 				if(lstrcmp(__targv[2], L"/secondlaunch")==0)
@@ -119,7 +189,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 */
 	// HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\SeparateProcess
-
+	
 	OPENFILENAME ofn = {0};
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = NULL;
