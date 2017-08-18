@@ -358,6 +358,22 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="4 dist"
+			>
+			<File
+				RelativePath=".\history.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\ReadMe.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\ReadMeJP.txt"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

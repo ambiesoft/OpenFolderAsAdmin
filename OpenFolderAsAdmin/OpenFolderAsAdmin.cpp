@@ -2,9 +2,6 @@
 
 #include "OpenFolderAsAdmin.h"
 
-HINSTANCE hInst;
-TCHAR szTitle[MAX_LOADSTRING];
-TCHAR szWindowClass[MAX_LOADSTRING];
 
 // http://www.flaticon.com/free-icon/delivery-pack-security-symbol-with-a-shield_45926
 
@@ -202,7 +199,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	ofn.lpstrFileTitle = NULL;
 	ofn.nMaxFileTitle = 0;
 	ofn.lpstrInitialDir = szArg;
-	ofn.lpstrTitle = _T("OpenFolderAsAdmin");
+	ofn.lpstrTitle = TITLEANDVERSION;
 	ofn.Flags = 
 		OFN_ALLOWMULTISELECT | 
 		OFN_ENABLESIZING | 
