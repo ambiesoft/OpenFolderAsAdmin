@@ -147,6 +147,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	TCHAR szArg[MAX_PATH] = {0};
 	TCHAR* buffer = (TCHAR*)malloc(4096);
 	STLSCOPEDFREE(buffer);
+	buffer[0]=0;
 	if(__argc > 1)
 	{
 		if(lstrcmp(__targv[1], L"/secondlaunch")==0)
@@ -218,7 +219,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	ofn.lpfnHook = OFNHookProc;
 	ofn.lpTemplateName = NULL;
 
-	GetOpenFileName(&ofn);
+	if(!GetOpenFileName(&ofn))
+	{
+		DWORD dwError = CommDlgExtendedError();
+		if(dwError==CDERR_DIALOGFAILURE)
+		{
+			return 0;
+		}
+	}
+
 
 
 	WaitWindowClose();
