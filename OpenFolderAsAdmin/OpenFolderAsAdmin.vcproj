@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="C:\Linkout\OpenFolderAsAdminD\"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -88,11 +88,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="C:\Linkout\OpenFolderAsAdminR\"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -165,11 +166,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Ship|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="C:\Linkout\OpenFolderAsAdmin\"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -242,6 +244,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\"
 			/>
 		</Configuration>
 	</Configurations>
@@ -253,6 +256,34 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\..\MyUtility\I18N.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Ship|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\OpenFolderAsAdmin.cpp"
 				>
@@ -320,6 +351,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\MyUtility\I18N.h"
+				>
+			</File>
+			<File
 				RelativePath=".\OpenFolderAsAdmin.h"
 				>
 			</File>
@@ -371,6 +406,14 @@
 			</File>
 			<File
 				RelativePath=".\ReadMeJP.txt"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="5 lang"
+			>
+			<File
+				RelativePath=".\lang\jpn.txt"
 				>
 			</File>
 		</Filter>

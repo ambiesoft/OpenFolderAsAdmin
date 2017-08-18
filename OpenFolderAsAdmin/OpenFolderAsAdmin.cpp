@@ -43,7 +43,7 @@ UINT_PTR CALLBACK OFNHookProc(
 			ShowWindow(hOK, SW_HIDE);
 
 			HWND hCancel = GetDlgItem(hParent, IDCANCEL);
-			SetWindowText(hCancel, _T("Close"));
+			SetWindowText(hCancel, I18N(_T("Close")));
 
 			HWND hStaticFilename = GetDlgItem(hParent, 0x442);
 			ShowWindow(hStaticFilename, SW_HIDE);
@@ -139,6 +139,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
+
+	i18nInitLangmap();
 
 	bool bSL=false;
 	TCHAR szArg[MAX_PATH] = {0};
