@@ -2,4 +2,4 @@
 
 #include "resource.h"
 
-#define TITLEANDVERSION _T("OpenFolderAsAdmin version 1.01");
+#define TITLEANDVERSION L"OpenFolderAsAdmin" L" " L"version" L" " APPVERSION

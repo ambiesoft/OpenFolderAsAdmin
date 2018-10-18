@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include "../../lsMisc/HighDPI.h"
+
 #include "OpenFolderAsAdmin.h"
 
 
@@ -140,12 +142,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
+	Ambiesoft::InitHighDPISupport();
+
 	i18nInitLangmap();
 
 	bool bSL=false;
 	TCHAR szArg[MAX_PATH] = {0};
 	TCHAR* buffer = (TCHAR*)malloc(4096);
-	STLSCOPEDFREE(buffer);
+	STLSOFT_SCODEDFREE_CRT(buffer);
 	buffer[0]=0;
 	if(__argc > 1)
 	{

@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../MyUtility/stlsoft/include"
+				AdditionalIncludeDirectories=".;../../lsMisc/stlsoft/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -88,7 +88,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\"
+				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -119,7 +119,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../MyUtility/stlsoft/include"
+				AdditionalIncludeDirectories=".;../../lsMisc/stlsoft/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -166,7 +166,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\"
+				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -197,7 +197,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="../../MyUtility/stlsoft/include"
+				AdditionalIncludeDirectories=".;../../lsMisc/stlsoft/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -244,7 +244,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\"
+				CommandLine="copy $(ProjectDir)Readme.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)ReadMeJP.txt $(TargetDir)&#x0D;&#x0A;copy $(ProjectDir)history.txt $(TargetDir)&#x0D;&#x0A;&#x0D;&#x0A;mkdir $(TargetDir)lang&#x0D;&#x0A;copy $(ProjectDir)lang\jpn.txt $(TargetDir)lang\&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -257,7 +257,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\MyUtility\I18N.cpp"
+				RelativePath="..\..\lsMisc\HighDPI.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lsMisc\I18N.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -317,7 +321,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\MyUtility\WaitWindowClose.cpp"
+				RelativePath="..\..\lsMisc\WaitWindowClose.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -351,7 +355,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\MyUtility\I18N.h"
+				RelativePath="..\..\lsMisc\HighDPI.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lsMisc\I18N.h"
 				>
 			</File>
 			<File
@@ -367,7 +375,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\MyUtility\stlScopedClear.h"
+				RelativePath="..\..\lsMisc\stlScopedClear.h"
 				>
 			</File>
 			<File
@@ -375,7 +383,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\MyUtility\WaitWindowClose.h"
+				RelativePath="..\..\lsMisc\WaitWindowClose.h"
 				>
 			</File>
 		</Filter>

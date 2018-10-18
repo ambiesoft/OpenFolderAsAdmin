@@ -17,10 +17,10 @@
 
 #include <stlsoft/smartptr/scoped_handle.hpp>
 
-#include "../../MyUtility/WaitWindowClose.h"
-#include "../../MyUtility/tstring.h"
-#include "../../MyUtility/stlScopedClear.h"
-#include "../../MyUtility/I18N.h"
+#include "../../lsMisc/WaitWindowClose.h"
+#include "../../lsMisc/tstring.h"
+#include "../../lsMisc/stlScopedClear.h"
+#include "../../lsMisc/I18N.h"
 
 
 #ifndef countof
@@ -30,6 +30,7 @@
 // #define MAX_LOADSTRING 100
 #define WM_APP_AFTERINIT WM_APP+33
 
+#define APPVERSION L"1.1.1"
 
 using namespace std;
 using namespace Ambiesoft;
